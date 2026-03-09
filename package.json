@@ -1,0 +1,28 @@
+{
+  "name": "slack-clone",
+  "private": true,
+  "scripts": {
+    "dev:server": "npm -w server run dev",
+    "dev:client": "npm -w client run dev",
+    "dev": "npm run dev:server & npm run dev:client",
+    "build:server": "npm -w server run build",
+    "build:client": "npm -w client run build",
+    "build": "npm run build:server && npm run build:client",
+    "lint": "eslint \"**/*.{ts,tsx}\" --ignore-pattern \"**/node_modules/**\" --ignore-pattern \"**/dist/**\" --ignore-pattern \"**/generated/**\"",
+    "format": "prettier --write \"**/*.{ts,tsx,json}\" --ignore-path .prettierignore"
+  },
+  "workspaces": [
+    "server",
+    "client",
+    "shared"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  }
+}

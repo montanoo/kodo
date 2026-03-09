@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoleType {
+  OWNER
+  ADMIN
+  MEMBER
+  GUEST
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  email           String            @unique
+  username        String            @unique
+  avatar          String?
+  password        String
+  isActive        Boolean           @default(true)
+  spaceMembers    SpaceMembers[]
+  channelMessages ChannelMessages[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  refreshTokens   RefreshToken[]
+}
+
+model Space {
+  id           Int            @id @default(autoincrement())
+  capacity     Int?
+  name         String
+  isPremium    Boolean
+  channels     Channel[]
+  spaceMembers SpaceMembers[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Role {
+  id           Int            @id @default(autoincrement())
+  type         RoleType
+  spaceMembers SpaceMembers[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model SpaceMembers {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    Int
+  space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, spaceId])
+  @@index([spaceId])
+  @@index([userId])
+}
+
+model Channel {
+  id              Int               @id @default(autoincrement())
+  name            String
+  space           Space             @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId         Int
+  channelMessages ChannelMessages[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model ChannelMessages {
+  id        Int      @id @default(autoincrement())
+  text      String
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channelId Int
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([channelId])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}

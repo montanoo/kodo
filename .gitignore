@@ -1,0 +1,35 @@
+# Dependencies
+node_modules
+*/node_modules
+
+# Environment variables
+.env
+*/.env
+
+# Build outputs
+dist
+*/dist
+
+# Prisma generated client
+generated
+*/generated
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/settings.json    # ← keep this, it's project tooling
+.idea
+
+# Docker
+.dockerenv
