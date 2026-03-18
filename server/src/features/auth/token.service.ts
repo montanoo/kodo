@@ -35,7 +35,7 @@ export async function generateTokens(
       } as JwtPayload,
       JWT_SECRET,
       {
-        expiresIn: '15m',
+        expiresIn: '24h',
         issuer: 'slack-clone-api',
         audience: 'slack-clone-client',
       }

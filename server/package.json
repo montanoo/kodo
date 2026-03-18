@@ -5,20 +5,22 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc && tsc-alias",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "seed": "tsx prisma/seed.ts"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@kodo/shared": "*",
     "@prisma/adapter-pg": "^7.4.2",
     "@prisma/client": "^7.4.2",
-    "@kodo/shared": "*",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "nanoid": "^5.1.6",
     "pg": "^8.20.0",
     "zod": "^4.3.6"
   },

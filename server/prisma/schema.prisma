@@ -32,22 +32,24 @@ model User {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   refreshTokens   RefreshToken[]
+  inviteCodes     InviteCode[]
 }
 
 model Space {
   id           Int            @id @default(autoincrement())
-  capacity     Int?
+  capacity     Int?           @default(10)
   name         String
-  isPremium    Boolean
+  isPremium    Boolean        @default(false)
   channels     Channel[]
   spaceMembers SpaceMembers[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
+  inviteCodes  InviteCode[]
 }
 
 model Role {
   id           Int            @id @default(autoincrement())
-  type         RoleType
+  type         RoleType       @unique
   spaceMembers SpaceMembers[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -92,6 +94,19 @@ model ChannelMessages {
   @@index([channelId])
   @@index([userId])
   @@index([createdAt])
+}
+
+model InviteCode {
+  id        Int       @id @default(autoincrement())
+  code      String    @unique
+  space     Space     @relation(fields: [spaceId], references: [id])
+  spaceId   Int
+  expiresAt DateTime?
+  createdBy User      @relation(fields: [userId], references: [id])
+  uses      Int       @default(1)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    Int
 }
 
 model RefreshToken {

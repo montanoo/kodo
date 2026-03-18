@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ForbiddenError, UnauthorizedError } from '@/errors/AppError';
 import jwt from 'jsonwebtoken';
+import { AuthPayload } from '@/types/auth.types';
 
 export const authMiddleware = (
   req: Request,
@@ -15,17 +16,17 @@ export const authMiddleware = (
     const token = authorization.split(' ')[1];
     const payload = jwt.verify(
       token,
-      process.env.JWT_SECRET_KEY || 'default_secret_key'
-    );
+      process.env.JWT_SECRET || 'default_secret_key'
+    ) as AuthPayload;
     req.user = payload;
 
     next();
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
-      return next(new UnauthorizedError('Invalid token'));
-    }
     if (error instanceof jwt.TokenExpiredError) {
       return next(new UnauthorizedError('Token expired'));
+    }
+    if (error instanceof jwt.JsonWebTokenError) {
+      return next(new UnauthorizedError('Invalid token'));
     }
     next(error);
   }

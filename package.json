@@ -1,5 +1,5 @@
 {
-  "name": "slack-clone",
+  "name": "kodo",
   "private": true,
   "scripts": {
     "dev:server": "npm -w server run dev",
