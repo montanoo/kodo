@@ -1,10 +1,14 @@
+import { z } from 'zod';
 import {
   createChannelSchema,
   sendMessageSchema,
 } from '@kodo/shared/validators/channel.validator';
 import { NextFunction, Request, Response } from 'express';
-import { createChannelService, sendMessageService } from './channel.service';
-import { z } from 'zod';
+import {
+  createChannelService,
+  getChannelMessagesService,
+  sendMessageService,
+} from './channel.service';
 
 export async function sendMessageChannel(
   req: Request,
@@ -32,6 +36,21 @@ export async function createChannel(
 
     const channel = await createChannelService(input, spaceId, req.user.userId);
     return res.status(200).json(channel);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getChannelMessages(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const channelId = z.coerce.number().parse(req.params.channelId);
+    const cursor = req.query.cursor ? Number(req.query.cursor) : undefined;
+    const result = await getChannelMessagesService(channelId, cursor);
+    return res.status(200).json(result);
   } catch (error) {
     next(error);
   }

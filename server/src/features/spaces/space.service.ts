@@ -119,3 +119,16 @@ export async function createSpaceCode(
 
   return { code: inviteCode.spaceId };
 }
+
+export async function getSpaceChannelsService(spaceId: number) {
+  const channels = await prisma.space.findFirst({
+    where: {
+      id: spaceId,
+    },
+    include: {
+      channels: true,
+    },
+  });
+
+  return { channels };
+}

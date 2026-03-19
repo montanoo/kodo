@@ -66,3 +66,21 @@ export async function createChannelService(
 
   return { newChannel };
 }
+
+export async function getChannelMessagesService(
+  channelId: number,
+  cursor?: number
+) {
+  const messages = await prisma.channelMessages.findMany({
+    where: {
+      channelId,
+    },
+    take: 50,
+    orderBy: {
+      createdAt: 'desc',
+    },
+    ...(cursor ? { cursor: { id: cursor }, skip: 1 } : {}),
+  });
+
+  return { messages: messages.reverse() };
+}

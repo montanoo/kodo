@@ -1,10 +1,12 @@
 import {
   createSpaceSchema,
+  getSpaceChannelsSchema,
   joinSpaceSchema,
 } from '@kodo/shared/validators/space.validator';
 import { Request, Response, NextFunction } from 'express';
 import {
   createSpaceService,
+  getSpaceChannelsService,
   getUserSpaceService,
   joinSpaceService,
 } from './space.service';
@@ -45,6 +47,20 @@ export async function createSpace(
     const input = createSpaceSchema.parse(req.body);
     const result = await createSpaceService(input, req.user.userId);
     return res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getSpaceChannels(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { spaceId } = getSpaceChannelsSchema.parse(req.params);
+    const result = await getSpaceChannelsService(spaceId);
+    return res.status(200).json(result);
   } catch (error) {
     next(error);
   }

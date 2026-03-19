@@ -1,10 +1,9 @@
 import { authMiddleware } from '@/middleware/authenticate';
 import { Router } from 'express';
-import { createChannel, sendMessageChannel } from './channel.controller';
+import { getChannelMessages } from './channel.controller';
 
 const channelRouter = Router();
 
-channelRouter.post('/:channelId/message', authMiddleware, sendMessageChannel);
-// channelRouter.post('/:spaceId', authMiddleware, createChannel);
+channelRouter.get('/:channelId/messages', authMiddleware, getChannelMessages);
 
 export default channelRouter;

@@ -6,6 +6,6 @@ import channelRouter from '@/features/channel/channel.route';
 const router = express.Router();
 router.use('/auth', authRouter);
 router.use('/spaces', spaceRouter);
-router.use('/channel', channelRouter);
+router.use('/channels', channelRouter);
 
 export default router;

@@ -4,6 +4,10 @@ export const joinSpaceSchema = z.object({
   inviteCode: z.string().min(5, 'Unique id is required'),
 });
 
+export const getSpaceChannelsSchema = z.object({
+  spaceId: z.coerce.number(),
+});
+
 export const createSpaceSchema = z.object({
   capacity: z.number().optional(),
   name: z.string().min(3, 'Name is required'),
