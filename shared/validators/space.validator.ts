@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const joinSpaceSchema = z.object({
-  inviteCode: z.string().uuid('Unique id is required'),
+  inviteCode: z.string().min(5, 'Unique id is required'),
 });
 
 export const createSpaceSchema = z.object({
