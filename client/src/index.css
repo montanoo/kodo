@@ -1,1 +1,24 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: #0c0a08; /* warm near-black background */
+  --color-surf: #141210; /* sidebar, topbar, cards */
+  --color-surf2: #1c1916; /* hover states, input backgrounds */
+  --color-border: #2a2620; /* all borders */
+  --color-text: #f0ede8; /* primary text */
+  --color-muted: #6b6560; /* secondary text, labels */
+  --color-accent: #e8ff47; /* electric lime — primary accent */
+  --color-green: #47ff8a; /* online status, done column, progress */
+  --color-amber: #ffb347; /* away status, review column, warnings */
+  --color-red: #ff4d4d; /* errors, high priority, overdue */
+}
+
+@theme {
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+}

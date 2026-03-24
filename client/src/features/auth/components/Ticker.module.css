@@ -1,0 +1,16 @@
+@keyframes tickerMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.tickerTrack {
+  animation: tickerMove 20s linear infinite;
+}
+
+.tickerItem::after {
+  content: '//';
+  color: #e8ff47;
+}

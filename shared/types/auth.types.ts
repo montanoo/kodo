@@ -13,3 +13,8 @@ export interface AuthResponse {
   user: AuthUser;
   tokens: AuthTokens;
 }
+
+export interface AuthApiResponse {
+  accessToken: string;
+  user: AuthUser;
+}

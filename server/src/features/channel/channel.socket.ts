@@ -10,7 +10,7 @@ export function registerChannelHandlers(io: Server, socket: Socket) {
     try {
       const input = sendMessageSchema.parse(arg);
       const result = await sendMessageService(input, socket.data.userId);
-      io.to(`channel:${input.channelId}`).emit('message:new', result);
+      io.to(`space:${input.spaceId}`).emit('message:new', result);
     } catch (error) {
       socket.emit('message:error', { error: 'something went wrong' });
     }
