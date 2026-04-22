@@ -12,7 +12,8 @@ export async function sendMessageService(
 ) {
   const message = await prisma.channelMessages.create({
     data: {
-      ...data,
+      text: data.text,
+      channelId: data.channelId,
       userId,
     },
     include: {
@@ -78,6 +79,15 @@ export async function getChannelMessagesService(
     take: 50,
     orderBy: {
       createdAt: 'desc',
+    },
+    include: {
+      user: {
+        select: {
+          username: true,
+          avatar: true,
+          email: true,
+        },
+      },
     },
     ...(cursor ? { cursor: { id: cursor }, skip: 1 } : {}),
   });

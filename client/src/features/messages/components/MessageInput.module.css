@@ -1,0 +1,35 @@
+@reference "../../../index.css";
+
+.editor .is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  @apply text-muted;
+}
+
+.editor strong {
+  @apply font-semibold text-text;
+}
+.editor em {
+  @apply italic text-muted;
+}
+.editor p {
+  @apply m-0;
+}
+.editor ul {
+  @apply pl-5 list-disc;
+}
+.editor ol {
+  @apply pl-5 list-decimal;
+}
+.editor code {
+  @apply font-mono text-xs bg-surf2 border border-border px-1 text-accent;
+}
+.editor pre {
+  @apply font-mono text-xs bg-surf2 border border-border p-3 text-accent my-1;
+}
+
+.editor {
+  @apply max-h-32 overflow-y-auto outline-none;
+}

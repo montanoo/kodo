@@ -10,12 +10,8 @@ export async function loadRoles(retries = 5, delay = 2000): Promise<void> {
     for (const role of roles) {
       RoleIds[role.type] = role.id;
     }
-    console.log('✅ Roles loaded');
   } catch (error) {
     if (retries > 0) {
-      console.log(
-        `⏳ DB not ready, retrying in ${delay}ms... (${retries} retries left)`
-      );
       await new Promise((resolve) => setTimeout(resolve, delay));
       return loadRoles(retries - 1, delay);
     }

@@ -8,15 +8,20 @@ type AuthStore = {
   logout: () => void;
 };
 
+const storedToken = localStorage.getItem('auth');
+const storedUser = localStorage.getItem('user');
+
 const authStore = create<AuthStore>()((set) => ({
-  user: null,
-  token: null,
+  user: storedUser ? (JSON.parse(storedUser) as AuthUser) : null,
+  token: storedToken ?? null,
   setAuth: (user, token) => {
     localStorage.setItem('auth', token);
+    localStorage.setItem('user', JSON.stringify(user));
     set({ user, token });
   },
   logout: () => {
     localStorage.removeItem('auth');
+    localStorage.removeItem('user');
     set({ user: null, token: null });
   },
 }));

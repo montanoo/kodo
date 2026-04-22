@@ -11,8 +11,13 @@ import '@fontsource/ibm-plex-mono/600.css';
 import '@fontsource/ibm-plex-sans/300.css';
 import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
+import { socket } from './lib/socket.ts';
 
 const queryClient = new QueryClient();
+const token = localStorage.getItem('auth');
+if (token) {
+  socket.connect();
+}
 
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>

@@ -7,6 +7,7 @@
   --color-border: #2a2620; /* all borders */
   --color-text: #f0ede8; /* primary text */
   --color-muted: #6b6560; /* secondary text, labels */
+  --color-muted-two: #9b9590;
   --color-accent: #e8ff47; /* electric lime — primary accent */
   --color-green: #47ff8a; /* online status, done column, progress */
   --color-amber: #ffb347; /* away status, review column, warnings */

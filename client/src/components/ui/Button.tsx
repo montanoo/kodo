@@ -1,5 +1,3 @@
-import React from 'react';
-
 type ButtonVariant = 'primary' | 'secondary';
 type ButtonType = 'submit' | 'reset' | 'button';
 
